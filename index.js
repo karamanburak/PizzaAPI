@@ -49,7 +49,7 @@ app.use(express.json());
 app.use(require("./src/middlewares/logging"));
 
 // Auhentication:
-// app.use(require('./src/middlewares/authentication'))
+app.use(require("./src/middlewares/authentication"));
 
 // findSearchSortPage / res.getModelList:
 app.use(require("./src/middlewares/queryHandler"));
@@ -93,4 +93,4 @@ app.listen(PORT, () => console.log("http://127.0.0.1:" + PORT));
 
 /* ------------------------------------------------------- */
 // Syncronization (must be in commentLine):
-// require('./src/helpers/sync')() // !!! It clear database.
+// require("./src/helpers/sync")(); // !!! It clear database.
