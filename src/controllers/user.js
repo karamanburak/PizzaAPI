@@ -11,7 +11,7 @@ module.exports = {
     res.status(200).send({
       error: false,
       details: await res.getModelListDetails,
-      results: users.legnth,
+      results: users.length,
       users,
     });
   },
