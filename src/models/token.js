@@ -1,6 +1,6 @@
 "use strict";
 /* -------------------------------------------------------
-    NODEJS EXPRESS | CLARUSWAY FullStack Team
+                        PIZZA API
 ------------------------------------------------------- */
 const { mongoose } = require("../configs/dbConnection");
 /* ------------------------------------------------------- */

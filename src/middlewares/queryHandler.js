@@ -1,6 +1,6 @@
 "use strict";
 /* -------------------------------------------------------
-    NODEJS EXPRESS | CLARUSWAY FullStack Team
+                        PIZZA API
 ------------------------------------------------------- */
 
 module.exports = (req, res, next) => {

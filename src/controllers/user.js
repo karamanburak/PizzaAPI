@@ -1,6 +1,6 @@
 "use strict";
 /* -------------------------------------------------------
-    NODEJS EXPRESS | CLARUSWAY FullStack Team
+                        PIZZA API
 ------------------------------------------------------- */
 
 const User = require("../models/user");
