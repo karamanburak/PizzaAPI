@@ -24,8 +24,15 @@ module.exports = {
     if (!req.user.isAdmin) {
       customFilter = { userId: req.user._id };
     }
+    const data = await res.getModelList(Order, customFilter, [
+      "userId",
+      {
+        path: "pizzaId",
+        select: "-__v",
+        populate: { path: "toppingIds", select: "name" },
+      },
+    ]);
 
-    const data = await res.getModelList(Order, customFilter);
     res.status(200).send({
       error: false,
       details: await res.getModelListDetails,

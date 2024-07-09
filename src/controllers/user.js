@@ -44,18 +44,33 @@ module.exports = {
             #swagger.tags = ["Users"]
             #swagger.summary = "Get Single User"
         */
-    const user = await User.findOne({ _id: req.params.id });
+
+    //* Admin degilse her türlü kullanicaya kendi bilgilerini döndür.
+    let customFilter = {};
+    if (!req.user.isAmin) {
+      customFilter = { _id: req.user._id };
+    } else {
+      customFilter = { _id: req.params.id };
+    }
+    const user = await User.findOne(customFilter);
     res.status(200).send({
       error: false,
       user,
     });
   },
+
   update: async (req, res) => {
     /*
             #swagger.tags = ["Users"]
             #swagger.summary = "Update User"
         */
-    const user = await User.updateOne({ _id: req.params.id }, req.body, {
+    let customFilter = {};
+    if (!req.user.isAmin) {
+      customFilter = { _id: req.user._id }; //* admin degilse istegi atan useri güncelle
+    } else {
+      customFilter = { _id: req.params.id };
+    }
+    const user = await User.updateOne(customFilter, req.body, {
       runValidators: true,
     });
     res.status(202).send({
