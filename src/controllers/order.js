@@ -19,7 +19,13 @@ module.exports = {
                 </ul>
             `
         */
-    const data = await res.getModelList(Order);
+
+    let customFilter = {};
+    if (!req.user.isAdmin) {
+      customFilter = { userId: req.user._id };
+    }
+
+    const data = await res.getModelList(Order, customFilter);
     res.status(200).send({
       error: false,
       details: await res.getModelListDetails,
@@ -33,6 +39,12 @@ module.exports = {
             #swagger.summary = "Create Order"
         */
     // delete req.body.amount; // amount alanini db ye eklememek icin
+
+    if (!req.user.isAdmin) {
+      req.body.userId = req.user._id; //* istek atan user
+    }
+
+    // req.body.userId = req.user._id; //* istek atan user
     const data = await Order.create(req.body);
     res.status(201).send({
       error: false,
