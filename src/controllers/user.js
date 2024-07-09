@@ -45,17 +45,26 @@ module.exports = {
             #swagger.summary = "Get Single User"
         */
 
-    //* Admin degilse her türlü kullanicaya kendi bilgilerini döndür.
+    //* admin değilse her halükarda kullanıcya kendi bilgilerini döndür
     let customFilter = {};
-    if (!req.user.isAmin) {
+    if (!req.user.isAdmin) {
       customFilter = { _id: req.user._id };
     } else {
       customFilter = { _id: req.params.id };
     }
-    const user = await User.findOne(customFilter);
+    const data = await User.findOne(customFilter);
+
+    //? admin değilse ve istediği bilgiler kendine ait değilse o zaman kullancıya hata döndür
+    // if(!req.user.isAdmin){
+    //   if(req.params.id != req.user._id){
+    //     throw new CustomError("No permission! you must be admin or own")
+    //   }
+    // }
+
+    // const data = await User.findOne({ _id: req.params.id });
     res.status(200).send({
       error: false,
-      user,
+      data,
     });
   },
 
@@ -64,19 +73,31 @@ module.exports = {
             #swagger.tags = ["Users"]
             #swagger.summary = "Update User"
         */
-    let customFilter = {};
-    if (!req.user.isAmin) {
-      customFilter = { _id: req.user._id }; //* admin degilse istegi atan useri güncelle
-    } else {
-      customFilter = { _id: req.params.id };
+    // let customFilter = {};
+    // if (!req.user.isAdmin) {
+    //   customFilter = { _id: req.user._id }; //* admin değilse değişimi istenen user değil isteği atan userı güncelle
+    // } else {
+    //   customFilter = { _id: req.params.id };
+    // }
+    // const data = await User.updateOne(customFilter, req.body, {
+    //   runValidators: true,
+    // });
+
+    //? admin değilse ve istediği bilgiler kendine ait değilse o zaman kullancıya hata döndür
+    if (!req.user.isAdmin) {
+      if (req.params.id != req.user._id) {
+        throw new CustomError("No permission! you must be admin or own");
+      }
     }
-    const user = await User.updateOne(customFilter, req.body, {
+
+    const data = await User.updateOne(customFilter, req.body, {
       runValidators: true,
     });
+
     res.status(202).send({
       error: false,
-      user,
-      updatedUser: await User.findOne({ _id: req.params.id }),
+      data,
+      newData: await User.findOne({ _id: req.params.id }),
     });
   },
   delete: async (req, res) => {
