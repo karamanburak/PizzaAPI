@@ -126,5 +126,26 @@ const OrderSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+OrderSchema.pre("save", function (next) {
+  // do stuff
+  this.amount = this.price * this.quantity;
+  next();
+});
+OrderSchema.pre("updateOne", async function (next) {
+  // do stuff
+  const updateData = this.getUpdate();
+  // console.log(updateData);
+  let newPrice = updateData.price;
+  let newQuantity = updateData.quantity;
 
+  if (newPrice || newQuantity) {
+    if (!newPrice || !newQuantity) {
+      const oldData = await this.model.findOne(this.getQuery());
+      newPrice = newPrice || oldData.price;
+      newQuantity = newQuantity || oldData.quantity;
+    }
+    this.set({ amount: newPrice * newQuantity });
+  }
+  next();
+});
 module.exports = mongoose.model("Order", OrderSchema);
