@@ -70,15 +70,16 @@ module.exports = {
             #swagger.summary = "Update Pizza"
         */
 
-    const pizza = await Pizza.findOne(
-      { _id: req.params.id },
-      { _id: 0, images: 1 }
-    );
+    const images = [];
     // console.log(pizzaImages)
     //! db deki önceki resimleri silmesin onların üzerine eklesin
+    // if (req.files) {
+    //   req.files.forEach(
+    //     (image) => pizza.images.push("/uploads/" + image.filename) //* önceki resimlerin üzerine ekledik.
+    // );
     if (req.files) {
       req.files.forEach(
-        (image) => pizza.images.push("/uploads/" + image.filename) //* önceki resimlerin üzerine ekledik.
+        (image) => images.push("/uploads/" + image.filename) //* önceki resimlerin üzerine ekledik.
       );
       // req.body.images = req.body.images
       //   ? Array.isArray(req.body.images)
@@ -94,11 +95,20 @@ module.exports = {
     //   }
     // }
     //* yukarıdaki örnekte update edilecekler arasına yeni resim yoksa resimleri eklemedik.
-    req.body.images = req.body.images
-      ? Array.isArray(req.body.images)
-        ? [...req.body.images, ...pizza.images]
-        : [req.body.images, ...pizza.images]
-      : pizza.images;
+    // req.body.images = req.body.images
+    //   ? Array.isArray(req.body.images)
+    //     ? [...req.body.images, ...pizza.images]
+    //     : [req.body.images, ...pizza.images]
+    //   : pizza.images;
+    //* resim upload edildiyse veya string olarak resim yollandıysa
+    if (req.body.images || images.length > 0) {
+      req.body.images = req.body.images
+        ? Array.isArray(req.body.images)
+          ? [...req.body.images, ...images]
+          : [req.body.images, ...images]
+        : images;
+    }
+    //! önceki pizzaya ait resim dosyaları kaldırılabilir.
 
     const data = await Pizza.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
