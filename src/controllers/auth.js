@@ -130,7 +130,7 @@ module.exports = {
   logout: async (req, res) => {
     /*
             #swagger.tags = ["Authentication"]
-            #swagger.summary = "simpleToken: Logout"
+            #swagger.summary = "JWT: Logout"
             #swagger.description = 'Delete token key.'
         */
     const auth = req.headers?.authorization;
@@ -139,12 +139,16 @@ module.exports = {
     let deleted = null;
     if (tokenKey && tokenKey[0] == "Token") {
       deleted = await Token.deleteOne({ token: tokenKey[1] });
+      res.status(deleted?.deletedCount > 0 ? 200 : 400).send({
+        error: !deleted?.deletedCount,
+        deleted,
+        message: deleted?.deletedCount > 0 ? "Logout Ok" : "Logout Failed",
+      });
+    } else {
+      res.send({
+        error: false,
+        message: "Logout Ok!",
+      });
     }
-
-    res.status(deleted?.deletedCount > 0 ? 200 : 400).send({
-      error: !deleted?.deletedCount,
-      deleted,
-      message: deleted?.deletedCount > 0 ? "Logout Ok" : "Logout Failed",
-    });
   },
 };
