@@ -73,23 +73,31 @@ module.exports = {
       { _id: req.params.id },
       { _id: 0, images: 1 }
     );
+    // console.log(pizzaImages)
+    //! db deki önceki resimleri silmesin onların üzerine eklesin
     if (req.files) {
       req.files.forEach(
         (image) => pizza.images.push("/uploads/" + image.filename) //* önceki resimlerin üzerine ekledik.
       );
-      req.body.images = req.body.images
-        ? Array.isArray(req.body.images)
-          ? [...req.body.images, ...pizza.images]
-          : [req.body.images, ...pizza.images]
-        : pizza.images;
-    } else if (req.body.images) {
-      //* kullanici upload etmeden string olarak da resim url i gönderebilir.
-      if (Array.isArray(req.body.images)) {
-        req.body.images = [...pizza.images, ...req.body.images];
-      } else {
-        req.body.images = [req.body.images, ...pizza.images];
-      }
+      // req.body.images = req.body.images
+      //   ? Array.isArray(req.body.images)
+      //     ? [...req.body.images, ...pizza.images]
+      //     : [req.body.images, ...pizza.images]
+      //   : pizza.images;
     }
+    // else if(req.body.images) {//* kullanıcı upload etmeden string olarak da resim url i gönderebilir.
+    //   if(Array.isArray(req.body.images)) {
+    //     req.body.images = [...req.body.images, ...pizza.images];
+    //   }else {
+    //     req.body.images = [req.body.images, ...pizza.images];
+    //   }
+    // }
+    //* yukarıdaki örnekte update edilecekler arasına yeni resim yoksa resimleri eklemedik.
+    req.body.images = req.body.images
+      ? Array.isArray(req.body.images)
+        ? [...req.body.images, ...pizza.images]
+        : [req.body.images, ...pizza.images]
+      : pizza.images;
 
     const data = await Pizza.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
