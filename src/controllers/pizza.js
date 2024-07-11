@@ -4,6 +4,7 @@
 ------------------------------------------------------- */
 
 const Pizza = require("../models/pizza");
+const fs = require("node:fs");
 
 module.exports = {
   list: async (req, res) => {
@@ -113,9 +114,19 @@ module.exports = {
             #swagger.tags = ["Pizzas"]
             #swagger.summary = "Delete Pizza"
         */
-    const data = await Pizza.deleteOne({ _id: req.params.id });
-    res.status(data.deletedCount ? 204 : 404).send({
-      error: !data.deletedCount,
+    // const data = await Pizza.deleteOne({ _id: req.params.id });
+    const data = await Pizza.findOneAndDelete({ _id: req.params.id });
+
+    if (data.images) {
+      data?.images.forEach((image) => {
+        if (!image.startsWith("http")) {
+          fs.unlink(`.${image}`, (err) => console.log(err));
+        }
+      });
+    }
+
+    res.status(data ? 204 : 404).send({
+      error: !data,
       data,
       message: "Pizza not found!",
     });
