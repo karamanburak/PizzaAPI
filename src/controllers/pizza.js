@@ -34,18 +34,18 @@ module.exports = {
             #swagger.summary = "Create Pizza"
         */
 
-    // console.log(req.file); //*  Single file
-    console.log(req.files); //*  Multi files
+    // console.log(req.files);
+    // console.log(req.body);
     if (req.files) {
       const images = [];
-      req.files.forEach((image) => images.push("/uploads/" + image.filename));
+      req.files.forEach((image) => images.push("/uploads/" + image.filename)); //* upload ile gelen resimlerin ismini yakaladık
+      //* db ye kaydetmek için req.body ye ekliyoruz
       req.body.images = req.body.images
         ? Array.isArray(req.body.images)
           ? [...req.body.images, ...images]
-          : [...req.body.images, ...images]
-        : images; //* ayni anda hem string hem de upload olarak gönderilebilir
+          : [req.body.images, ...images]
+        : images; //* aynı anda hem string hem de upload olarak gönderebilsin
     }
-
     const data = await Pizza.create(req.body);
     res.status(201).send({
       error: false,
