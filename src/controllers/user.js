@@ -1,4 +1,5 @@
 "use strict";
+const sendMail = require("../helpers/sendMail");
 /* -------------------------------------------------------
                         PIZZA API
 ------------------------------------------------------- */
@@ -34,6 +35,11 @@ module.exports = {
             #swagger.summary = "Create User"
         */
     const newUser = await User.create(req.body);
+    sendMail(
+      newUser.email,
+      "Wellcome to the PIZZAS",
+      `<h1>Wellcome ${newUser.username} your account successfully created</h1>`
+    );
     res.status(201).send({
       error: false,
       newUser,

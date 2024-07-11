@@ -38,6 +38,8 @@ require("express-async-errors");
 // Connect to DB:
 const { dbConnection } = require("./src/configs/dbConnection");
 dbConnection();
+const morgan = require("morgan");
+console.log(morgan("dev"));
 
 /* ------------------------------------------------------- */
 // Middlewares:
@@ -55,6 +57,80 @@ app.use(require("./src/middlewares/authentication"));
 app.use(require("./src/middlewares/queryHandler"));
 
 /* ------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                                    Email                                   */
+/* -------------------------------------------------------------------------- */
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+//! nodemailer
+// https://nodemailer.com/
+// https://ethereal.email/ (testing email)
+
+// const nodemailer = require("nodemailer");
+
+// nodemailer.createTestAccount().then(data=> console.log(data))
+// {
+//   user: 'zbzbtrkybv5t24wm@ethereal.email',
+//   pass: 'jEYA9g4kdzt5RUK96t',
+//   smtp: { host: 'smtp.ethereal.email', port: 587, secure: false },
+//   imap: { host: 'imap.ethereal.email', port: 993, secure: true },
+//   pop3: { host: 'pop3.ethereal.email', port: 995, secure: true },
+//   web: 'https://ethereal.email',
+//   mxEnabled: false
+// }
+
+//* Connect Nodemailer
+// const transporter = nodemailer.createTransport({
+//   host: "smtp.ethereal.email",
+//   port: 587,
+//   secure: false, // Use `true` for port 465, `false` for all other ports => ssl/tls
+//   auth: {
+//     user: "zbzbtrkybv5t24wm@ethereal.email",
+//     pass: "jEYA9g4kdzt5RUK96t",
+//   },
+// });
+
+//SenMail
+// transporter.sendMail({
+//   from: '"Anthony Harold 👻" <zbzbtrkybv5t24wm@ethereal.email>', // sender address
+//   to: "devfss99@gmail.com", // single user
+// //   to: "bar@example.com, baz@example.com", // list of receivers
+//   subject: "Hello ✔", // Subject line
+//   text: "Hello world?", // plain text body
+//   html: "<b>Hello world?</b>", // html body
+// },(error,success)=>{
+//     error ? console.log(error) : console.log(success)
+// });
+
+//* GoogleMail (gmail)
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: "karaman.buraak@gmail.com",
+//     pass: "hmqp yjwy oloo pdjd",
+//   },
+// });
+
+// //? YandexMail (yandex):
+// const transporter = nodemailer.createTransport({
+//     service: 'Yandex',
+//     auth: {
+//         user: 'username@yandex.com',
+//         pass: 'password' // your emailPassword
+//     }
+// })
+
+// transporter.sendMail(
+//   {
+//     // from:"devfs99@gmail.com",
+//     to: "karaman.buraak@gmail.com",
+//     subject: "Hello ✔", // Subject line
+//     text: "Hello world?", // plain text body
+//     html: "<b>Hello world?</b>", // html body
+//   },
+//   (error, success) => console.log(success, error)
+// );
+
 // Routes:
 
 // HomePath:
