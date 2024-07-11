@@ -151,8 +151,10 @@ app.all("/", (req, res) => {
 });
 
 // routes/index.js:
-app.use(require("./src/routes/")); //* default yazmadığımızda kök route u esas alır.
+// app.use(require("./src/routes/")); //* default yazmadığımızda kök route u esas alır.
 app.use("/", require("./src/routes/"));
+
+app.use("/uploads", express.static("./uploads"));
 
 //* eşleşmeyen routeları yakalar
 app.use((req, res, next) => {
