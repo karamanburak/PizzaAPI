@@ -83,8 +83,9 @@ module.exports = {
           : [req.body.images, ...pizza.images]
         : pizza.images;
     } else if (req.body.images) {
+      //* kullanici upload etmeden string olarak da resim url i gönderebilir.
       if (Array.isArray(req.body.images)) {
-        req.body.images = [...req.body.images, ...pizza.images];
+        req.body.images = [...pizza.images, ...req.body.images];
       } else {
         req.body.images = [req.body.images, ...pizza.images];
       }
