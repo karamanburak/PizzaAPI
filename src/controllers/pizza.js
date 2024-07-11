@@ -39,8 +39,11 @@ module.exports = {
     if (req.files) {
       const images = [];
       req.files.forEach((image) => images.push("/uploads/" + image.filename));
-
-      req.body.images = images;
+      req.body.images = req.body.images
+        ? Array.isArray(req.body.images)
+          ? [...req.body.images, ...images]
+          : [...req.body.images, ...images]
+        : images; //* ayni anda hem string hem de upload olarak gönderilebilir
     }
 
     const data = await Pizza.create(req.body);
@@ -65,6 +68,28 @@ module.exports = {
             #swagger.tags = ["Pizzas"]
             #swagger.summary = "Update Pizza"
         */
+
+    const pizza = await Pizza.findOne(
+      { _id: req.params.id },
+      { _id: 0, images: 1 }
+    );
+    if (req.files) {
+      req.files.forEach(
+        (image) => pizza.images.push("/uploads/" + image.filename) //* önceki resimlerin üzerine ekledik.
+      );
+      req.body.images = req.body.images
+        ? Array.isArray(req.body.images)
+          ? [...req.body.images, ...pizza.images]
+          : [req.body.images, ...pizza.images]
+        : pizza.images;
+    } else if (req.body.images) {
+      if (Array.isArray(req.body.images)) {
+        req.body.images = [...req.body.images, ...pizza.images];
+      } else {
+        req.body.images = [req.body.images, ...pizza.images];
+      }
+    }
+
     const data = await Pizza.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
