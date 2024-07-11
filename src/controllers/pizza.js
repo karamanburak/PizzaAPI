@@ -39,6 +39,7 @@ module.exports = {
     if (req.files) {
       const images = [];
       req.files.forEach((image) => images.push("/uploads/" + image.filename));
+
       req.body.images = images;
     }
 
