@@ -37,10 +37,8 @@ module.exports = {
       in: "body",
       required : true,
       schema:{
-        {
   "name": "Margherita",
   "price": 12
-}
         }
       }
         */
@@ -89,9 +87,9 @@ module.exports = {
       in: "body",
       required : true,
       schema:{
-        {
   "name": "Margherita",
   "price": 10
+}
 }
         */
 
@@ -153,6 +151,7 @@ module.exports = {
       required : true,
       schema:{
         id:"id"
+        }
         }
         */
     // const data = await Pizza.deleteOne({ _id: req.params.id });

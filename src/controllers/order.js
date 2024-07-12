@@ -50,13 +50,11 @@ module.exports = {
       in: "body",
       required : true,
       schema:{
-       {
   "userId": "668bafc440fa6bce7e43fdfe4",
   "pizzaId": "668bba4c89e3e16b32c6c8f0",
   "size": "Small",
   "quantity": 6,
   "price": 15
-}
         }
       }
         */
@@ -179,7 +177,6 @@ module.exports = {
       in: "body",
       required : true,
       schema:{
-        {
   "userId": "668bafc440fa6bce7e43fdfe",
   "pizzaId": "668bba4c89e3e16b32c6c8f0",
   "quantity": 10,

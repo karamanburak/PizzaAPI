@@ -13,7 +13,7 @@
       "name": "ISC"
     }
   },
-  "host": "https://pizza-api-ckp4.onrender.com",
+  "host": "pizza-api-ckp4.onrender.com",
   "basePath": "/",
   "schemes": [
     "http",
@@ -344,11 +344,29 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "userId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "668bafc440fa6bce7e43fdfe4"
+                },
+                "pizzaId": {
+                  "type": "string",
+                  "example": "668bba4c89e3e16b32c6c8f0"
+                },
+                "size": {
+                  "type": "string",
+                  "example": "Small"
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 6
+                },
+                "price": {
+                  "type": "number",
+                  "example": 15
                 }
               }
             }
@@ -394,17 +412,41 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "668bafc440fa6bce7e43fdfe"
+                },
+                "pizzaId": {
+                  "type": "string",
+                  "example": "668bba4c89e3e16b32c6c8f0"
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 10
+                },
+                "price": {
+                  "type": "number",
+                  "example": 10
+                },
+                "size": {
+                  "type": "string",
+                  "example": "Small"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "202": {
             "description": "Accepted"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       },
@@ -443,17 +485,41 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "668bafc440fa6bce7e43fdfe"
+                },
+                "pizzaId": {
+                  "type": "string",
+                  "example": "668bba4c89e3e16b32c6c8f0"
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 10
+                },
+                "price": {
+                  "type": "number",
+                  "example": 10
+                },
+                "size": {
+                  "type": "string",
+                  "example": "Small"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "202": {
             "description": "Accepted"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -481,11 +547,17 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "images": {
-                  "example": "any"
+                "name": {
+                  "type": "string",
+                  "example": "Margherita"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 12
                 }
               }
             }
@@ -549,11 +621,17 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "images": {
-                  "example": "any"
+                "name": {
+                  "type": "string",
+                  "example": "Margherita"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 10
                 }
               }
             }
@@ -562,12 +640,6 @@
         "responses": {
           "202": {
             "description": "Accepted"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       },
@@ -583,6 +655,20 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "id"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -610,11 +696,17 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "images": {
-                  "example": "any"
+                "name": {
+                  "type": "string",
+                  "example": "Margherita"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 10
                 }
               }
             }
@@ -623,12 +715,6 @@
         "responses": {
           "202": {
             "description": "Accepted"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }

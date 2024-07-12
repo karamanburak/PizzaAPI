@@ -19,7 +19,7 @@ const document = {
     license: { name: packageJson.license },
   },
   // host: `${HOST}:${PORT}`,
-  host: `https://pizza-api-ckp4.onrender.com`,
+  host: `pizza-api-ckp4.onrender.com`,
   basePath: "/",
   schemes: ["http", "https"],
   consumes: ["application/json"],
