@@ -46,6 +46,19 @@ module.exports = {
     /*
             #swagger.tags = ["Orders"]
             #swagger.summary = "Create Order"
+                  #swagger.parameters["body"] = {
+      in: "body",
+      required : true,
+      schema:{
+       {
+  "userId": "668bafc440fa6bce7e43fdfe4",
+  "pizzaId": "668bba4c89e3e16b32c6c8f0",
+  "size": "Small",
+  "quantity": 6,
+  "price": 15
+}
+        }
+      }
         */
     // delete req.body.amount; // amount alanini db ye eklememek icin
 
@@ -162,6 +175,18 @@ module.exports = {
     /*
             #swagger.tags = ["Orders"]
             #swagger.summary = "Update Order"
+                 #swagger.parameters["body"] = {
+      in: "body",
+      required : true,
+      schema:{
+        {
+  "userId": "668bafc440fa6bce7e43fdfe",
+  "pizzaId": "668bba4c89e3e16b32c6c8f0",
+  "quantity": 10,
+  "price": 10,
+  "size": "Small"
+}
+        }
         */
     // delete req.body.amount; // amount alanini db ye eklememek icin, amoun hesaplamasini getter ile yapariz!!!
 

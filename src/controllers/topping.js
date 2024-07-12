@@ -31,6 +31,13 @@ module.exports = {
     /*
             #swagger.tags = ["Toppings"]
             #swagger.summary = "Create Topping"
+                  #swagger.parameters["body"] = {
+      in: "body",
+      required : true,
+      schema:{
+        name:"tomato"
+        }
+      }
         */
     const data = await Topping.create(req.body);
     res.status(201).send({

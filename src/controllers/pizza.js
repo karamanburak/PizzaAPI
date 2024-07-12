@@ -33,6 +33,16 @@ module.exports = {
     /*
             #swagger.tags = ["Pizzas"]
             #swagger.summary = "Create Pizza"
+              #swagger.parameters["body"] = {
+      in: "body",
+      required : true,
+      schema:{
+        {
+  "name": "Margherita",
+  "price": 12
+}
+        }
+      }
         */
 
     // console.log(req.files);
@@ -57,6 +67,13 @@ module.exports = {
     /*
             #swagger.tags = ["Pizzas"]
             #swagger.summary = "Get Single Pizza"
+                  #swagger.parameters["body"] = {
+      in: "body",
+      required : true,
+      schema:{
+        id:"id"
+        }
+      }
         */
     const data = await Pizza.findOne({ _id: req.params.id });
     res.status(200).send({
@@ -68,6 +85,14 @@ module.exports = {
     /*
             #swagger.tags = ["Pizzas"]
             #swagger.summary = "Update Pizza"
+                          #swagger.parameters["body"] = {
+      in: "body",
+      required : true,
+      schema:{
+        {
+  "name": "Margherita",
+  "price": 10
+}
         */
 
     const images = [];
@@ -123,6 +148,12 @@ module.exports = {
     /*
             #swagger.tags = ["Pizzas"]
             #swagger.summary = "Delete Pizza"
+                              #swagger.parameters["body"] = {
+      in: "body",
+      required : true,
+      schema:{
+        id:"id"
+        }
         */
     // const data = await Pizza.deleteOne({ _id: req.params.id });
     const data = await Pizza.findOneAndDelete({ _id: req.params.id });
