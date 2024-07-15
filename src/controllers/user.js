@@ -24,7 +24,7 @@ module.exports = {
     const users = await res.getModelList(User);
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails,
+      details: await res.getModelListDetails(User),
       results: users.length,
       users,
     });

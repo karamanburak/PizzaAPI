@@ -22,7 +22,7 @@ module.exports = {
     const data = await res.getModelList(Topping);
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails,
+      details: await res.getModelListDetails(Topping),
       data,
     });
   },

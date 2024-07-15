@@ -24,7 +24,7 @@ module.exports = {
     const data = await res.getModelList(Pizza);
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails,
+      details: await res.getModelListDetails(Pizza),
       data,
     });
   },
